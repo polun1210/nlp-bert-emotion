@@ -96,7 +96,7 @@ LABEL_MAP_FILE = DATA_DIR / "label_map.json"
 # Trainer 的 checkpoint 暫存區。
 #
 # 訓練中會產生 checkpoint-* 資料夾（每個約 1.2 GB，含 optimizer 狀態），
-# 作業不需要上傳，所以和最終模型分開放。
+# 不需要放進 repo，所以和最終模型分開放。
 CHECKPOINT_DIR = Path("checkpoints")
 
 # 最終要交的最佳模型（只含推論需要的檔案）。
@@ -138,7 +138,7 @@ GRADIENT_ACCUMULATION_STEPS = 1
 
 # BERT 論文建議 fine-tuning 使用 2e-5、3e-5、5e-5。
 #
-# 老師範例使用 1e-4，對 BERT 偏大：
+# 1e-4 對 BERT 全模型微調偏大：
 # 在只有三千多筆的小資料集上，
 # 太大的 learning rate 容易破壞預訓練學到的語言知識
 # （catastrophic forgetting），訓練曲線也比較抖。
@@ -463,7 +463,7 @@ def main():
         print(f"  {key}: {value}")
 
     # -------------------------------------------------------------------------
-    # Step 12：儲存最佳模型（作業要交的 output/）
+    # Step 12：儲存最佳模型（放進 repo 的 output/）
     # -------------------------------------------------------------------------
 
     trainer.save_model(str(OUTPUT_DIR))

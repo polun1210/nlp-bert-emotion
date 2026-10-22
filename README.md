@@ -1,7 +1,13 @@
 # 中文句子情緒分類（BERT 八類多元分類）
 
 微調 `bert-base-chinese`，把一句中文對話分成 8 種情緒語調。
-這份作業改寫自課程的 `bert_finetune` 範例，把原本的**二元分類**（正面 / 負面評論）改成**多元分類**（8 類情緒）。
+從常見的**二元情感分類**（正面 / 負面）延伸成**多元分類**（8 類情緒），完整走過資料清理、訓練、評估與錯誤分析。
+
+**重點成果**
+
+- Test set（訓練與挑模型都沒用過）accuracy **0.887**、macro F1 **0.882**
+- 處理資料洩漏（去除重複句子）、分層抽樣切出獨立的 test set
+- 用混淆矩陣分析錯誤，發現部分錯誤來自標註本身模稜兩可（label noise）
 
 ## 訓練資料來源
 - [Datasets: Johnson8187/Chinese_Multi-Emotion_Dialogue_Dataset](https://huggingface.co/datasets/Johnson8187/Chinese_Multi-Emotion_Dialogue_Dataset)
@@ -55,12 +61,12 @@ data/train.jsonl (3323)  valid.jsonl (415)  test.jsonl (416)  label_map.json
 output/  最佳模型
    ├─ evaluate_bert.py      test set 評估 + 混淆矩陣
    ├─ plot_bert_metrics.py  loss / accuracy / F1 曲線
-   └─ infer_bert.py         預測作業指定的句子
+   └─ infer_bert.py         預測示範句子
 ```
 
 ### 二元分類 → 多元分類，改了什麼
 
-| 項目 | 範例（二元） | 本作業（八類） | 原因 |
+| 項目 | 二元分類 baseline | 本專案（八類） | 原因 |
 |---|---|---|---|
 | label | 0 / 1 | 中文字串 → 0~7 | CrossEntropyLoss 只接受整數類別 index，用 `label_map.json` 固定對照 |
 | `num_labels` | 2 | 8 | 分類頭從 `Linear(768→2)` 變成 `Linear(768→8)` |
@@ -105,13 +111,13 @@ python evaluate_bert.py
 # 4. 畫訓練曲線
 python plot_bert_metrics.py
 
-# 5. 預測作業指定的句子
+# 5. 預測示範句子
 python infer_bert.py
 ```
 
 ## 成果
 
-### 作業指定句子的預測結果
+### 示範句子的預測結果
 
 ```
 我每天都能跟她一起上學，我好開心！ => 開心語調 (0.9839)

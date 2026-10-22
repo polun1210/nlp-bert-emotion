@@ -27,7 +27,7 @@ prepare_data.py
     data/test.jsonl
     data/label_map.json
 
-和老師的二元分類範例相比，主要差異：
+和常見的二元情感分類（正面 / 負面）寫法相比，主要差異：
 
 1. label 從 0 / 1 變成 8 種中文字串，需要建立 label ↔ id 的對照表。
 2. 多切一份 test set。
@@ -169,7 +169,7 @@ def save_jsonl(texts, label_ids, path: Path):
 
         {"sentences": "我好開心", "labels": 5}
 
-    欄位名稱沿用老師範例的 sentences / labels。
+    欄位名稱用 sentences / labels。
     labels 這個名字很重要：Trainer 會自動把名為 labels 的欄位當成正確答案。
     """
 
