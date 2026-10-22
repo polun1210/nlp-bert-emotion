@@ -1,0 +1,11 @@
+# PyTorch 請依顯示卡另外安裝，例如 RTX 50 系列需要 CUDA 12.8 以上的版本：
+#   pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0
+transformers==5.20.1
+datasets==5.1.0
+accelerate==1.15.0
+safetensors==0.8.0
+scikit-learn==1.9.1
+pandas==3.0.6
+numpy==2.5.4
+matplotlib==3.11.2

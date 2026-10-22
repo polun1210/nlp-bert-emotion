@@ -1,0 +1,9 @@
+# Trainer 中途存的 checkpoint（每個約 1.2 GB，作業只交 output/ 的最佳模型）
+checkpoints/
+
+# 訓練過程的終端機輸出
+train_log.txt
+
+__pycache__/
+*.pyc
+.venv/
